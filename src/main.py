@@ -291,11 +291,19 @@ def get_power_control_mode(plant_limit=None, cooldown_seconds=60, max_retries=3)
             if plant_limit:
                 stations_to_process = stations_to_process[:plant_limit]
 
-            # Todo for total plants to process
+            # Todo buffer for total plants to process
+            # Delete the state file when collection is complete
             total_to_process = len(stations_to_process)
             if total_to_process == 0:
                 print("\n[INFO]: All plants are up to date. Exiting.")
-                return
+                try:
+                    if os.path.exists(config.STATE_FILE_PATH):
+                        os.remove(config.STATE_FILE_PATH)
+                        print("[INFO]: State file deletion successful.")
+                except Exception as e:
+                    print(f"[ERROR]: Could not delete state file. Error: {e}")
+                    sys.exit(1)
+                return 
             print(f"[INFO]: Found {len(all_stations)} plants in total. {total_to_process} plants left to process.")
 
             # Initial cooldown
@@ -344,7 +352,8 @@ def get_power_control_mode(plant_limit=None, cooldown_seconds=60, max_retries=3)
     finally:
         if db_conn is not None:
             db_conn.close()
-            print("\n[INFO]: Database connection closed. Exiting.")
+            print("\n[INFO]: Database connection closed.")
+            print("[INFO]: Exiting script.")
             sys.exit(exit_code)
 
 # DRIVER CODE
