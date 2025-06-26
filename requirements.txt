@@ -1,0 +1,5 @@
+# Huawei Python Client
+fusionsolar==0.0.6
+
+# PostgreSQL Database Adapter
+psycopg2-binary==2.9.10
