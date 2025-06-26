@@ -78,7 +78,7 @@ The script will fetch data from the FusionSolar API and store it in your configu
    ExecStart=/home/almalinux/adam/fusion-solar-collector/venv/bin/python main.py
 
    # RELIABILITY
-   Restart=on-failure
+   Restart=always
    RestartSec=60
    StartLimitInterval=300
    StartLimitBurst=3
