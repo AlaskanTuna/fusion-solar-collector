@@ -93,4 +93,4 @@ The script will fetch data from the FusionSolar API and store it in your configu
 
    [Install]
    WantedBy=multi-user.target
-```
+   ```
